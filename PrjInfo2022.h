@@ -15,6 +15,40 @@
 #pragma comment(lib,"Winmm.lib")
 #pragma comment(lib,"winmm")
 
+//PARAMETRES
+
+//Taille de la grille
+#define LIGNES 6
+#define COLONNES 6
+//Nombre de bateaux
+#define N_BATEAUX 2
+//Choix de couleurs
+#define COLOR_1 15
+#define COLOR_2 15
+//Durees
+#define TEMPS 50
+#define TEMPS2 200
+//Autres parametres
+#define TAILLE_LOAD 80
+
+//Declarations prototypes
+void playSolo(void);
+void initCases(int f_int_mer);
+void logo(void);
+void load(void);
+void Fscreen(void);
+void afficheMerDebug(int f_int_player);
+void afficheMer(int f_int_mer);
+void placeBateau(int f_int_mer);
+void placeBateauJoueur(int f_int_mer);
+void checkCoule(int f_int_mer);
+TCoord demandeJoueur(void);
+bool checkCase(TCoord l_enr_essai, int f_int_mer);
+void regles(void);
+int nombreJoueurs(void);
+void playSolo(void);
+void playDuo(void);
+
 typedef struct {
 	int m_int_ligne;
 	int m_int_colonne;

@@ -1,20 +1,6 @@
 #include "PrjInfo2022.h"
 
-//PARAMETRES
 
-//Taille de la grille
-#define LIGNES 6
-#define COLONNES 6
-//Nombre de bateaux
-#define N_BATEAUX 2
-//Choix de couleurs
-#define COLOR_1 15
-#define COLOR_2 15
-//Durees
-#define TEMPS 50
-#define TEMPS2 200
-//Autres parametres
-#define TAILLE_LOAD 80
 
 
 //VARIABLES
@@ -25,11 +11,11 @@ int iBcl1; // compteur de boucle n2
 int iBcl2; // compteur de boucle n3
 int iBcl3; // compteur de boucle n4
 
-//Variables utilisées pour le positionnement
+//Variables utilisï¿½es pour le positionnement
 int l_int_ligne = 0; //
 int l_int_colonne = 0; //
-int l_int_coordX; //coordonnées X utilisée dans certains calculs 
-int l_int_coordY; //coordonnées Y utilisée dans certains calculs
+int l_int_coordX; //coordonnï¿½es X utilisï¿½e dans certains calculs 
+int l_int_coordY; //coordonnï¿½es Y utilisï¿½e dans certains calculs
 int l_int_direction; //direction demandee au joueur
 bool l_bool_direction; //l_bool_direction 0 pour vertical et 1 pour horizontal
 
@@ -38,8 +24,8 @@ int l_int_points[] = { 0,0 }; //Compteur de points par joueur
 int l_int_tentatives; //compteur de tentatives
 
 //Verifieurs
-bool l_bool_bateauxPlaces = 0; //Les bateaux ont été correctement placés
-bool l_bool_win = 0; //Etat de la partie (Gagnee 1 | Pas encore gagnée 0)
+bool l_bool_bateauxPlaces = 0; //Les bateaux ont ï¿½tï¿½ correctement placï¿½s
+bool l_bool_win = 0; //Etat de la partie (Gagnee 1 | Pas encore gagnï¿½e 0)
 
 int l_char_lancement;
 int l_int_choix[2]; //choix
@@ -50,9 +36,9 @@ int l_char_regles; //connaissance des regles
 
 
 //Variables Temps POSSIBILITE D'AMELIORER EN UTILISANT UN TYPEDEF
-int l_int_timeDebut;//timecode du début de la partie
+int l_int_timeDebut;//timecode du dï¿½but de la partie
 int l_int_timeFin;//timecode de la fin de la partie
-int l_int_time;//durée de la partie
+int l_int_time;//durï¿½e de la partie
 int l_int_minutes;//nombre des minutes du temps
 int l_int_secondes;//nombre des secondes du temps
 
@@ -60,9 +46,9 @@ int l_int_secondes;//nombre des secondes du temps
 int l_int_tour; //Numero du Tour
 int l_int_player; //Numero du joueur dont c'est le tour
 
-//Gestion des bateaux coulés
-int l_int_coules[] = { 0,0 }; // compteur de bateaux coulés dans chaque mer
-int l_int_coulesAns[] = { 0,0 }; //compteur de bateaux coulés dans chaque mer au tour précédent
+//Gestion des bateaux coulï¿½s
+int l_int_coules[] = { 0,0 }; // compteur de bateaux coulï¿½s dans chaque mer
+int l_int_coulesAns[] = { 0,0 }; //compteur de bateaux coulï¿½s dans chaque mer au tour prï¿½cï¿½dent
 bool l_boolTab_Coules[2][N_BATEAUX] = { 0,0 }; //Tableau 2D qui stocke l'etat (coule ou non) de 1 bateau de 1 joueur par case
 
 //Mers et Bateaux
@@ -353,7 +339,7 @@ void checkCoule(int f_int_mer) {
 }
 
 //fonction qui demande une case au joueur et qui la retourne au format TCoord
-TCoord demandeJoueur() {
+TCoord demandeJoueur(void) {
 	//declarations
 	TCoord l_enr_case;
 
