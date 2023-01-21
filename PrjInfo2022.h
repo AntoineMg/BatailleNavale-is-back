@@ -103,7 +103,3 @@ void JouerSonBaR(int x_int_code, HMIDIOUT x_hMidiOut_obj, int x_int_volume);
 void JouerSonJeu(int x_int_note, HMIDIOUT x_hMidiOut_obj, int x_int_volume);
 
 void InitJeu32(TCarte x_enrTab_Carte32[], int m_int_taille);
-
-
-
-

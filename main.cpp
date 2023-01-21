@@ -9,7 +9,7 @@ int iBcl1; // compteur de boucle n2
 int iBcl2; // compteur de boucle n3
 int iBcl3; // compteur de boucle n4
 
-//Variables utilis�es pour le positionnement
+//Variables utilisees pour le positionnement
 int l_int_ligne = 0; //
 int l_int_colonne = 0; //
 int l_int_coordX; //coordonn�es X utilis�e dans certains calculs 
@@ -22,8 +22,8 @@ int l_int_points[] = { 0,0 }; //Compteur de points par joueur
 int l_int_tentatives; //compteur de tentatives
 
 //Verifieurs
-bool l_bool_bateauxPlaces = 0; //Les bateaux ont �t� correctement plac�s
-bool l_bool_win = 0; //Etat de la partie (Gagnee 1 | Pas encore gagn�e 0)
+bool l_bool_bateauxPlaces = 0; //Les bateaux ont ete correctement places
+bool l_bool_win = 0; //Etat de la partie (Gagnee 1 | Pas encore gagnee 0)
 
 int l_char_lancement;
 int l_int_choix[2]; //choix
@@ -34,9 +34,9 @@ int l_char_regles; //connaissance des regles
 
 
 //Variables Temps POSSIBILITE D'AMELIORER EN UTILISANT UN TYPEDEF
-int l_int_timeDebut;//timecode du d�but de la partie
+int l_int_timeDebut;//timecode du debut de la partie
 int l_int_timeFin;//timecode de la fin de la partie
-int l_int_time;//dur�e de la partie
+int l_int_time;//duree de la partie
 int l_int_minutes;//nombre des minutes du temps
 int l_int_secondes;//nombre des secondes du temps
 
@@ -55,18 +55,24 @@ TBateau l_enr_Bateaux[N_BATEAUX]; //Declarations des bateaux
 
 void main(void) {
 
+	//Mets la fenetre en fullscreen
 	Fscreen();
+
+	//Lance la musique d'intro
 	PlaySoundA("Intro2.wav", NULL, SND_ASYNC);
 	Sleep(2000);
+
+	//Affiche le logo et l'ecran de chargement
 	logo();
 	load();
+
+	//Lance l'audio du menu (explications en anglais)
 	PlaySoundA("Menu.wav", NULL, SND_ASYNC);
 	printf("Recommencer le message (Y ou y) ou lancer le programme (autre touche)\n");
 	l_char_lancement = _getch();
 	if ((l_char_lancement == 'Y') || (l_char_lancement == 'y')) {
 		PlaySoundA("Menu.wav", NULL, SND_ASYNC);
 	}
-	
 	
 	//Acceuil et regles
 	//Color(FOREGROUND_INTENSITY | BACKGROUND_BLUE);
@@ -82,6 +88,7 @@ void main(void) {
 	}
 	else{
 		printf("Tant pis, au revoir !!!");
+		system("pause");
 	}
 	
 	//Obtention de la duree de la partie
