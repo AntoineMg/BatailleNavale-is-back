@@ -102,4 +102,5 @@ void main(void) {
 	//nb tentatives
 	printf("Vous avez effectue %i tentatives en une duree de %i minutes et %i secondes", l_int_tentatives, l_int_minutes, l_int_secondes);
 
+	//ui
 }
