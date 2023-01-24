@@ -6,14 +6,14 @@
 //fonction qui initialise toutes les cases de la mer a 0
 void initCases(int f_int_mer) {
 
-	int iBcl1; // compteur de boucle n2
-	int iBcl2; // compteur de boucle n3
+	int iBcl1; // compteur de boucle n1
+	int iBcl2; // compteur de boucle n2
 
 	//initialisation de toutes les cases a 0
 	for (iBcl1 = 0; iBcl1 < LIGNES; iBcl1++) {
 		for (iBcl2 = 0; iBcl2 < COLONNES; iBcl2++) {
-			l_enrTab_Mer[f_int_mer][iBcl1][iBcl2].m_int_bateau = 0;
-			l_enrTab_Mer[f_int_mer][iBcl1][iBcl2].m_bool_touche = 0;
+			 g_enrTab_Mer[f_int_mer][iBcl1][iBcl2].m_int_bateau = 0;
+			 g_enrTab_Mer[f_int_mer][iBcl1][iBcl2].m_bool_touche = 0;
 		}
 	}
 }
@@ -65,8 +65,8 @@ void Fscreen(void) {
 //DEBUG
 void afficheMerDebug(int f_int_player) {
 
-	int iBcl1; // compteur de boucle n2
-	int iBcl2; // compteur de boucle n3
+	int iBcl1; // compteur de boucle n1
+	int iBcl2; // compteur de boucle n2
 
 	//affichage de la ligne d'en tete en couleur1
 	Color(COLOR_1);
@@ -80,7 +80,7 @@ void afficheMerDebug(int f_int_player) {
 		Color(COLOR_2);
 		//boucle for pour afficher les colonnes
 		for (iBcl2 = 0; iBcl2 < COLONNES; iBcl2++) {
-			printf("%i ", l_enrTab_Mer[f_int_player][iBcl1][iBcl2].m_int_bateau);
+			printf("%i ", g_enrTab_Mer[f_int_player][iBcl1][iBcl2].m_int_bateau);
 		}
 		//retour a la ligne pour rendre le resultat plus clean
 		printf("\n");
@@ -91,8 +91,8 @@ void afficheMerDebug(int f_int_player) {
 //fonction pour afficher une mer
 void afficheMer(int f_int_mer) {
 
-	int iBcl1; // compteur de boucle n2
-	int iBcl2; // compteur de boucle n3
+	int iBcl1; // compteur de boucle n1
+	int iBcl2; // compteur de boucle n2
 
 	//affichage de la ligne d'en tete en couleur1
 	Color(BACKGROUND_RED | COLOR_1);
@@ -108,7 +108,7 @@ void afficheMer(int f_int_mer) {
 		Color(COLOR_2 | BACKGROUND_BLUE);
 		//boucle for pour afficher les colonnes
 		for (iBcl2 = 0; iBcl2 < COLONNES; iBcl2++) {
-			if (l_enrTab_Mer[f_int_mer][iBcl1][iBcl2].m_bool_touche == 1) {
+			if ( g_enrTab_Mer[f_int_mer][iBcl1][iBcl2].m_bool_touche == 1) {
 				printf("X ");
 			}
 			else {
@@ -124,8 +124,15 @@ void afficheMer(int f_int_mer) {
 //fonction pour placer les bateaux automatiquement
 void placeBateau(int f_int_mer) {
 
-	int iBcl1; // compteur de boucle n2
-	int iBcl2; // compteur de boucle n3
+	int iBcl1; // compteur de boucle n1
+	int iBcl2; // compteur de boucle n2
+
+	bool l_bool_bateauxPlaces = 0; //Les bateaux ont ete correctement places
+	bool l_bool_direction; //l_bool_direction 0 pour vertical et 1 pour horizontal
+
+	int l_int_ligne = 0; //
+	int l_int_colonne = 0; //
+
 	//init aleatoire
 	srand(time(NULL));
 
@@ -147,18 +154,18 @@ void placeBateau(int f_int_mer) {
 				l_int_colonne = rand() % 6;
 
 				//Si la case choisie aleatoirement et les 2 suivantes verticales sont libres, alors on place le bateau
-				if ((l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && (l_enrTab_Mer[f_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau == 0) && (l_enrTab_Mer[f_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau == 0)) {
+				if (( g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && ( g_enrTab_Mer[f_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau == 0) && ( g_enrTab_Mer[f_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau == 0)) {
 					//ajout du bateau dans la mer
-					l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
-					l_enrTab_Mer[f_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau = 1;
-					l_enrTab_Mer[f_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau = 1;
+					 g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
+					 g_enrTab_Mer[f_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau = 1;
+					 g_enrTab_Mer[f_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau = 1;
 					//stockage du bateau
-					l_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne = l_int_colonne;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne = l_int_ligne;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_colonne = l_int_colonne;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_ligne = l_int_ligne+1;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_colonne = l_int_colonne;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_ligne = l_int_ligne+2;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne = l_int_colonne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne = l_int_ligne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_colonne = l_int_colonne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_ligne = l_int_ligne+1;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_colonne = l_int_colonne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_ligne = l_int_ligne+2;
 					//confirmation que le bateau est place
 					l_bool_bateauxPlaces = 1;
 				}
@@ -175,18 +182,18 @@ void placeBateau(int f_int_mer) {
 				l_int_colonne = rand() % 4;
 
 				//Si la case choisie aleatoirement et les 2 suivantes horizontales sont libres, alors on place le bateau
-				if ((l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && (l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau == 0) && (l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau == 0)) {
+				if (( g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && ( g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau == 0) && ( g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau == 0)) {
 					//ajout du bateau dans la mer
-					l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
-					l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau = 1;
-					l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau = 1;
+					 g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
+					 g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau = 1;
+					 g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau = 1;
 					//Stockage du bateau
-					l_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne = l_int_colonne;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne = l_int_ligne;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_colonne = l_int_colonne+1;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_ligne = l_int_ligne;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_colonne = l_int_colonne+2;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_ligne = l_int_ligne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne = l_int_colonne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne = l_int_ligne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_colonne = l_int_colonne+1;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_ligne = l_int_ligne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_colonne = l_int_colonne+2;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_ligne = l_int_ligne;
 					//confirmation que le bateau est place
 					l_bool_bateauxPlaces = 1;
 				}
@@ -235,18 +242,18 @@ void placeBateauJoueur(int f_int_mer) {
 				scanf_s("%i", &l_int_coordX);
 
 				//Si la case choisie aleatoirement et les 2 suivantes verticales sont libres, alors on place le bateau
-				if ((l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && (l_enrTab_Mer[f_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau == 0) && (l_enrTab_Mer[f_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau == 0)) {
+				if (( g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && ( g_enrTab_Mer[f_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau == 0) && ( g_enrTab_Mer[f_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau == 0)) {
 					//ajout du bateau dans la mer
-					l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
-					l_enrTab_Mer[f_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau = 1;
-					l_enrTab_Mer[f_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau = 1;
+					 g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
+					 g_enrTab_Mer[f_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau = 1;
+					 g_enrTab_Mer[f_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau = 1;
 					//stockage du bateau
-					l_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne = l_int_colonne;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne = l_int_ligne;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_colonne = l_int_colonne;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_ligne = l_int_ligne + 1;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_colonne = l_int_colonne;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_ligne = l_int_ligne + 2;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne = l_int_colonne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne = l_int_ligne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_colonne = l_int_colonne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_ligne = l_int_ligne + 1;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_colonne = l_int_colonne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_ligne = l_int_ligne + 2;
 					//confirmation que le bateau est place
 					l_bool_bateauxPlaces = 1;
 				}
@@ -263,18 +270,18 @@ void placeBateauJoueur(int f_int_mer) {
 				l_int_colonne = rand() % 4;
 
 				//Si la case choisie aleatoirement et les 2 suivantes horizontales sont libres, alors on place le bateau
-				if ((l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && (l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau == 0) && (l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau == 0)) {
+				if (( g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && ( g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau == 0) && ( g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau == 0)) {
 					//ajout du bateau dans la mer
-					l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
-					l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau = 1;
-					l_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau = 1;
+					 g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
+					 g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau = 1;
+					 g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau = 1;
 					//Stockage du bateau
-					l_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne = l_int_colonne;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne = l_int_ligne;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_colonne = l_int_colonne + 1;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_ligne = l_int_ligne;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_colonne = l_int_colonne + 2;
-					l_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_ligne = l_int_ligne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne = l_int_colonne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne = l_int_ligne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_colonne = l_int_colonne + 1;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_ligne = l_int_ligne;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_colonne = l_int_colonne + 2;
+					g_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_ligne = l_int_ligne;
 					//confirmation que le bateau est place
 					l_bool_bateauxPlaces = 1;
 				}
@@ -283,18 +290,18 @@ void placeBateauJoueur(int f_int_mer) {
 	}
 }
 
-//fonction pour verifie si il y a un bateau coule dans une mer
+//fonction pour verifier si il y a un bateau coule dans une mer
 //fonctionne parfsois ex pour E456 et pour CDE4 et pour A234
 void checkCoule(int f_int_mer) {
-	l_int_coules[f_int_mer] = 0;
+	g_int_coules[f_int_mer] = 0;
 	for (iBcl1 = 0; iBcl1 < N_BATEAUX; iBcl1++) {
-		if ((l_enrTab_Mer[f_int_mer][l_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne][l_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne].m_bool_touche == 1) && (l_enrTab_Mer[f_int_mer][l_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_ligne][l_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_colonne].m_bool_touche == 1) && (l_enrTab_Mer[f_int_mer][l_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_ligne][l_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_colonne].m_bool_touche == 1)) {
+		if (( g_enrTab_Mer[f_int_mer][g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne][g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne].m_bool_touche == 1) && ( g_enrTab_Mer[f_int_mer][g_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_ligne][g_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_colonne].m_bool_touche == 1) && ( g_enrTab_Mer[f_int_mer][g_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_ligne][g_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_colonne].m_bool_touche == 1)) {
 			l_boolTab_Coules[f_int_mer][iBcl] = 1;
 		}
 	}
 	for (iBcl2 = 0; iBcl2 < N_BATEAUX; iBcl2++) {
 		if (l_boolTab_Coules[f_int_mer][iBcl2] == 1) {
-			l_int_coules[f_int_mer]++;
+			g_int_coules[f_int_mer]++;
 		}
 	}
 }
@@ -303,6 +310,8 @@ void checkCoule(int f_int_mer) {
 TCoord demandeJoueur(void) {
 	//declarations
 	TCoord l_enr_case;
+	int l_int_coordX; //coordonn�es X utilis�e dans certains calculs 
+	int l_int_coordY; //coordonn�es Y utilis�e dans certains calculs
 
 	//demande de saisie utilisateur tant que il n a pas saisi de valeur correcte (ex : A5 / D2 / C4 / ... )
 	do {
@@ -327,16 +336,16 @@ TCoord demandeJoueur(void) {
 
 //Verifie si un bateau etait present dans la case selectionne
 bool checkCase(TCoord l_enr_essai,int f_int_mer) {
-	if (l_enrTab_Mer[f_int_mer][l_enr_essai.m_int_ligne][l_enr_essai.m_int_colonne].m_int_bateau == 1) {
+	if ( g_enrTab_Mer[f_int_mer][l_enr_essai.m_int_ligne][l_enr_essai.m_int_colonne].m_int_bateau == 1) {
 		//printf("Touche\n");
-		l_enrTab_Mer[f_int_mer][l_enr_essai.m_int_ligne][l_enr_essai.m_int_colonne].m_bool_touche = 1;
-		l_int_points[f_int_mer]+=1;
-		l_int_tentatives+=1;
+		 g_enrTab_Mer[f_int_mer][l_enr_essai.m_int_ligne][l_enr_essai.m_int_colonne].m_bool_touche = 1;
+		g_int_points[f_int_mer]+=1;
+		g_int_tentatives+=1;
 		return(1);
 	}
 	else {
 		//printf("Loupe\n");
-		l_int_tentatives++;
+		g_int_tentatives++;
 		return(0);
 	}
 }
@@ -362,6 +371,9 @@ void regles(void) {
 
 //Fonction qui demande a l'utilisateur combien de joueurs veulent jouer et qui retourne le nombre de joueurs
 int nombreJoueurs(void) {
+
+	int l_int_nbJoueurs; //nombre de joueurs de la partie
+
 	printf("Combien de joueurs ? \n");
 	scanf_s("%i", &l_int_nbJoueurs);
 	system("CLS");
@@ -369,9 +381,12 @@ int nombreJoueurs(void) {
 }
 
 //Fonction qui demarre une partie en mode solo
-void playSolo(void) {
+int playSolo(void) {
 	system("CLS");
-	l_int_player = 0;
+
+	int l_int_timeDebut;//timecode du debut de la partie
+	int l_int_timeFin;//timecode de la fin de la partie
+	int l_int_player = 0;
 	//placement des bateaux
 	placeBateau(l_int_player);
 	afficheMer(l_int_player);
@@ -381,18 +396,18 @@ void playSolo(void) {
 	l_int_timeDebut = GetTickCount();
 
 	//Tant que le joueur n'a pas gagne le jeu continue
-	while (l_int_points[l_int_player] < N_BATEAUX * 3) {
+	while (g_int_points[l_int_player] < N_BATEAUX * 3) {
 		TCoord l_enr_saisie = demandeJoueur();
 		//Si le bateau est touche on affiche touche ou coule
 		if (checkCase(l_enr_saisie, l_int_player)) {
 			//si le bateau est coule on affiche coule
 			checkCoule(0);
-			if (l_int_coules[l_int_player] > l_int_coulesAns[l_int_player]) {
-				l_int_coulesAns[l_int_player] = l_int_coules[l_int_player];
+			if (g_int_coules[l_int_player] > g_int_coulesAns[l_int_player]) {
+				g_int_coulesAns[l_int_player] = g_int_coules[l_int_player];
 				system("CLS");
 				afficheMer(l_int_player);
 				printf("Coule !\n");
-				printf("%i points\n", l_int_points[l_int_player]);
+				printf("%i points\n", g_int_points[l_int_player]);
 			}
 
 			//Si non on affiche seulement touche
@@ -400,7 +415,7 @@ void playSolo(void) {
 				system("CLS");
 				afficheMer(l_int_player);
 				printf("Touche !\n");
-				printf("%i points\n", l_int_points[l_int_player]);
+				printf("%i points\n", g_int_points[l_int_player]);
 			}
 		}
 
@@ -409,15 +424,21 @@ void playSolo(void) {
 			system("CLS");
 			afficheMer(l_int_player);
 			printf("Rate !\n");
-			printf("%i points\n", l_int_points[l_int_player]);
+			printf("%i points\n", g_int_points[l_int_player]);
 		}
 
 
 	}
+	return(l_int_timeDebut);
 }
 
 //Fonction qui demarre une partie en mode 2 joueurs
 void playDuo(void) {
+
+	int l_int_tour; //Numero du Tour
+	int l_int_player; //Numero du joueur dont c'est le tour
+
+
 	//placement des bateaux des deux joueurs
 	//placeBateauJoueur(1);
 	//placeBateauJoueur(2);
@@ -425,7 +446,7 @@ void playDuo(void) {
 	placeBateau(2);
 
 	//Debut du chrono
-	l_int_timeDebut = GetTickCount();
+	int l_int_timeDebut = GetTickCount();
 
 	//
 	while (l_bool_win == 0) {
@@ -447,12 +468,12 @@ void playDuo(void) {
 		if (checkCase(l_enr_saisie,l_int_player)) {
 			//si le bateau est coule on affiche coule
 			checkCoule(l_int_player);
-			if (l_int_coules > l_int_coulesAns) {
-				l_int_coulesAns[l_int_player] = l_int_coules[l_int_player];
+			if (g_int_coules > g_int_coulesAns) {
+				g_int_coulesAns[l_int_player] = g_int_coules[l_int_player];
 				system("CLS");
 				afficheMer(1);
 				printf("Coule !\n");
-				printf("%i points\n", l_int_points[l_int_player]);
+				printf("%i points\n", g_int_points[l_int_player]);
 			}
 
 			//Si non on affiche seulement touche
@@ -460,7 +481,7 @@ void playDuo(void) {
 				system("CLS");
 				afficheMer(l_int_player);
 				printf("Touche !\n");
-				printf("%i points\n", l_int_points[l_int_player]);
+				printf("%i points\n", g_int_points[l_int_player]);
 			}
 		}
 
@@ -469,7 +490,7 @@ void playDuo(void) {
 			system("CLS");
 			afficheMer(l_int_player);
 			printf("Rate !\n");
-			printf("%i points\n", l_int_points[l_int_player]);
+			printf("%i points\n", g_int_points[l_int_player]);
 		}
 
 		l_int_tour++;
@@ -478,11 +499,3 @@ void playDuo(void) {
 	}
 
 }
-
-
-
-
-
-
-
-
