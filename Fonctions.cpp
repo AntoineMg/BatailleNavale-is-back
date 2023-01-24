@@ -5,6 +5,10 @@
 
 //fonction qui initialise toutes les cases de la mer a 0
 void initCases(int f_int_mer) {
+
+	int iBcl1; // compteur de boucle n2
+	int iBcl2; // compteur de boucle n3
+
 	//initialisation de toutes les cases a 0
 	for (iBcl1 = 0; iBcl1 < LIGNES; iBcl1++) {
 		for (iBcl2 = 0; iBcl2 < COLONNES; iBcl2++) {
@@ -37,6 +41,9 @@ void logo(void) {
 
 //Ecrqn de chargement
 void load(void) {
+
+	int iBcl; // compteur de boucle
+
 	printf("\t\t\t\t\t\tChargement [");
 	for (iBcl = 0; iBcl < TAILLE_LOAD; iBcl++) {
 		Sleep(TEMPS2);
@@ -57,6 +64,10 @@ void Fscreen(void) {
 
 //DEBUG
 void afficheMerDebug(int f_int_player) {
+
+	int iBcl1; // compteur de boucle n2
+	int iBcl2; // compteur de boucle n3
+
 	//affichage de la ligne d'en tete en couleur1
 	Color(COLOR_1);
 	printf("   1 2 3 4 5 6\n");
@@ -79,6 +90,10 @@ void afficheMerDebug(int f_int_player) {
 
 //fonction pour afficher une mer
 void afficheMer(int f_int_mer) {
+
+	int iBcl1; // compteur de boucle n2
+	int iBcl2; // compteur de boucle n3
+
 	//affichage de la ligne d'en tete en couleur1
 	Color(BACKGROUND_RED | COLOR_1);
 	printf("=== JOUEUR %i ===\n", f_int_mer);
@@ -109,6 +124,8 @@ void afficheMer(int f_int_mer) {
 //fonction pour placer les bateaux automatiquement
 void placeBateau(int f_int_mer) {
 
+	int iBcl1; // compteur de boucle n2
+	int iBcl2; // compteur de boucle n3
 	//init aleatoire
 	srand(time(NULL));
 
