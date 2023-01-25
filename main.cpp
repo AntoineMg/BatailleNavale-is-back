@@ -4,55 +4,37 @@
 //VARIABLES
 
 //pour les variables globales, les renommer en g_int_xx
-
+/*
 //Variables utilisees pour le positionnement
 //locales
-int l_int_ligne = 0; //
-int l_int_colonne = 0; //
-int l_int_coordX; //coordonn�es X utilis�e dans certains calculs 
-int l_int_coordY; //coordonn�es Y utilis�e dans certains calculs
-int l_int_direction; //direction demandee au joueur
-bool l_bool_direction; //l_bool_direction 0 pour vertical et 1 pour horizontal
 
+
+//Verifieurs
+int l_int_choix[2]; //choix
+int l_int_tour; //Numero du Tour
+int l_int_player; //Numero du joueur dont c'est le tour
+*/
+
+//globales
+
+int g_int_coules[] = { 0,0 }; // compteur de bateaux coul�s dans chaque mer
+int g_int_coulesAns[] = { 0,0 }; //compteur de bateaux coul�s dans chaque mer au tour pr�c�dent
 //Compteurs
 int g_int_points[] = { 0,0 }; //Compteur de points par joueur
 int g_int_tentatives; //compteur de tentatives
-
-//Verifieurs
-bool l_bool_bateauxPlaces = 0; //Les bateaux ont ete correctement places
-bool l_bool_win = 0; //Etat de la partie (Gagnee 1 | Pas encore gagnee 0)
-
-int l_char_lancement;
-int l_int_choix[2]; //choix
-
-//Saisies par l'Utilisateur
-int l_int_nbJoueurs; //nombre de joueurs de la partie
-int l_char_regles; //connaissance des regles
-
-
-//Variables Temps 
-//POSSIBILITE D'AMELIORER EN UTILISANT UN TYPEDEF
-int l_int_timeDebut;//timecode du debut de la partie
-int l_int_timeFin;//timecode de la fin de la partie
-int l_int_time;//duree de la partie
-int l_int_minutes;//nombre des minutes du temps
-int l_int_secondes;//nombre des secondes du temps
-
-//Gestion des tours
-int l_int_tour; //Numero du Tour
-int l_int_player; //Numero du joueur dont c'est le tour
-
-//Gestion des bateaux coul�s
-int g_int_coules[] = { 0,0 }; // compteur de bateaux coul�s dans chaque mer
-int g_int_coulesAns[] = { 0,0 }; //compteur de bateaux coul�s dans chaque mer au tour pr�c�dent
-bool l_boolTab_Coules[2][N_BATEAUX] = { 0,0 }; //Tableau 2D qui stocke l'etat (coule ou non) de 1 bateau de 1 joueur par case
-
 //Mers et Bateaux
-//globales
 TCase g_enrTab_Mer[2][LIGNES][COLONNES]; //Declarations des mers (Tableau 3D, voir readme.md pour details)
 TBateau g_enr_Bateaux[N_BATEAUX]; //Declarations des bateaux 
 
 void main(void) {
+
+	int l_char_lancement;
+	int l_int_nbJoueurs; //nombre de joueurs de la partie
+	int l_int_timeDebut;//timecode du debut de la partie
+	int l_int_timeFin;//timecode de la fin de la partie
+	int l_int_time;//duree de la partie
+	int l_int_minutes;//nombre des minutes du temps
+	int l_int_secondes;//nombre des secondes du temps
 
 	//Mets la fenetre en fullscreen
 	Fscreen();

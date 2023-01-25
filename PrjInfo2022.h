@@ -10,11 +10,10 @@
 #include <string>
 #include <time.h>
 #include <math.h>
-#include "Fonctions.cpp"
 
 #pragma comment(lib,"Winmm.lib")
 #pragma comment(lib,"winmm")
-
+ 
 //PARAMETRES
 
 //Taille de la grille
@@ -30,24 +29,6 @@
 #define TEMPS2 200
 //Autres parametres
 #define TAILLE_LOAD 80
-
-//Declarations prototypes
-void playSolo(void);
-void initCases(int f_int_mer);
-void logo(void);
-void load(void);
-void Fscreen(void);
-void afficheMerDebug(int f_int_player);
-void afficheMer(int f_int_mer);
-void placeBateau(int f_int_mer);
-void placeBateauJoueur(int f_int_mer);
-void checkCoule(int f_int_mer);
-TCoord demandeJoueur(void);
-bool checkCase(TCoord l_enr_essai, int f_int_mer);
-void regles(void);
-int nombreJoueurs(void);
-void playSolo(void);
-void playDuo(void);
 
 typedef struct {
 	int m_int_ligne;
@@ -103,3 +84,21 @@ void JouerSonBaR(int x_int_code, HMIDIOUT x_hMidiOut_obj, int x_int_volume);
 void JouerSonJeu(int x_int_note, HMIDIOUT x_hMidiOut_obj, int x_int_volume);
 
 void InitJeu32(TCarte x_enrTab_Carte32[], int m_int_taille);
+
+//Declarations prototypes
+void initCases(int f_int_mer);
+void logo(void);
+void load(void);
+void Fscreen(void);
+void afficheMerDebug(int f_int_player);
+void afficheMer(int f_int_mer);
+void placeBateau(int f_int_mer);
+void placeBateauJoueur(int f_int_mer);
+void checkCoule(int f_int_mer);
+TCoord demandeJoueur(void);
+bool checkCase(TCoord l_enr_essai, int f_int_mer);
+void regles(void);
+int nombreJoueurs(void);
+int playSolo(void);
+void playDuo(void);
+
