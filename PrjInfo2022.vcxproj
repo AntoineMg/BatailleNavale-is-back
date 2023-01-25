@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Fonctions.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PrjInfo2022.cpp" />
   </ItemGroup>
@@ -118,6 +117,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ForceFileOutput>Enabled</ForceFileOutput>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
