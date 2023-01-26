@@ -7,7 +7,6 @@ void Color(WORD x_word_attributes) {    // fonction d'affichage de couleurs
 	SetConsoleTextAttribute(H, x_word_attributes);
 }
 
-
 void InitJeu32(TCarte x_enrTab_Carte32[], int m_int_taille) {
 	int iBcl;
 	for (iBcl = 0; iBcl<8; iBcl++) {
@@ -26,36 +25,27 @@ void InitJeu32(TCarte x_enrTab_Carte32[], int m_int_taille) {
 	x_enrTab_Carte32[31].m_int_valeur = 1;
 }
 
-
-
 void ChoisirInstrument(int x_int_channel, int x_int_numInstrument, HMIDIOUT x_hMidiOut_obj){
 	midiOutShortMsg(x_hMidiOut_obj,x_int_channel | 0xC0 | (x_int_numInstrument << 8));
 }
-
-
 
 void JouerNote(int x_int_channel, int x_int_note, int x_int_force, HMIDIOUT x_hMidiOut_obj){
 	midiOutShortMsg(x_hMidiOut_obj, x_int_channel | 0x90 | (x_int_note << 8) | (x_int_force << 16));
 }
 
-
-
 void ArreterNote(int x_int_Channel, int x_int_note, HMIDIOUT x_hMidiOut_obj) {
 	midiOutShortMsg(x_hMidiOut_obj, x_int_Channel | 0x80 | (x_int_note << 8));
 }
-
 
 void JouerSonBaR(int x_int_code, HMIDIOUT x_hMidiOut_obj, int x_int_volume) {
 	ChoisirInstrument(1, x_int_code,x_hMidiOut_obj);
 	JouerNote(1, 53, x_int_volume, x_hMidiOut_obj);
 }
 
-
 void JouerSonJeu(int x_int_note, HMIDIOUT x_hMidiOut_obj, int x_int_volume) {
 	ChoisirInstrument(1, 1, x_hMidiOut_obj);
 	JouerNote(1, x_int_note, x_int_volume, x_hMidiOut_obj);
 }
-
 
 void InitTabMusic(TExtraitSonore x_enrTab_songInit[], int x_int_taille) {
 	x_enrTab_songInit[0].m_string_nomFichier = ("Song0.wav");
@@ -103,8 +93,6 @@ void InitTabMusic(TExtraitSonore x_enrTab_songInit[], int x_int_taille) {
 	x_enrTab_songInit[20].m_string_nomChanson = "Gala";
 	
 }
-
-
 
 void InitTabSport(TExtraitSonore x_enrTab_sportInit[], int x_int_taille) {
 	x_enrTab_sportInit[0].m_string_nomFichier = ("Sport0.wav");
@@ -202,6 +190,11 @@ void Fscreen(void) {
 	keybd_event(VK_MENU, 0x38, KEYEVENTF_KEYUP, 0); //Relache ALT
 }
 
+void Zoom(void) {
+	keybd_event(VK_LCONTROL, 0xA2, 0, 0); //Appuie sur Ctrl
+	mouse_event(MOUSEEVENTF_WHEEL, 0, 0, -75*120, 0);
+	keybd_event(VK_LCONTROL, 0x1c, KEYEVENTF_KEYUP, 0); // Relache ENTREE
+}
 //DEBUG
 void afficheMerDebug(int f_int_player) {
 
@@ -245,7 +238,13 @@ void afficheMer(int f_int_mer) {
 	for (iBcl1 = 0; iBcl1 < LIGNES; iBcl1++) {
 		Color(COLOR_1);
 		printf(" %c  ", iBcl1 + 65);
-		Color(COLOR_2 | BACKGROUND_BLUE);
+		if (f_int_mer == 1) {
+			Color(COLOR_2 | BACKGROUND_BLUE);
+		}
+		else {
+			Color(COLOR_2 | 35);
+		}
+	
 		//boucle for pour afficher les colonnes
 		for (iBcl2 = 0; iBcl2 < COLONNES; iBcl2++) {
 			if (g_enrTab_Mer[f_int_mer][iBcl1][iBcl2].m_bool_touche == 1) {
@@ -343,7 +342,6 @@ void placeBateau(int f_int_mer) {
 }
 
 //fonction pour que les joueurs placent les bateaux
-//FONCTIONNE PAS = TROP DE BUGS
 void placeBateauJoueur(int f_int_mer) {
 	int iBcl1,iBcl2;
 	int l_int_direction; //direction demandee au joueur
@@ -455,6 +453,7 @@ void checkCoule(int f_int_mer) {
 			g_int_coules[f_int_mer]++;
 		}
 	}
+
 }
 
 //fonction qui demande une case au joueur et qui la retourne au format TCoord

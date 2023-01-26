@@ -10,6 +10,7 @@
 #include <string>
 #include <time.h>
 #include <math.h>
+#include <iostream>
 
 #pragma comment(lib,"Winmm.lib")
 #pragma comment(lib,"winmm")
@@ -26,9 +27,11 @@
 #define COLOR_2 15
 //Durees
 #define TEMPS 50
-#define TEMPS2 200
+#define TEMPS2 32
 //Autres parametres
 #define TAILLE_LOAD 80
+
+#define MOUSE 120
 
 typedef struct {
 	int m_int_ligne;
@@ -101,4 +104,4 @@ void regles(void);
 int nombreJoueurs(void);
 int playSolo(void);
 void playDuo(void);
-
+void Zoom(void);

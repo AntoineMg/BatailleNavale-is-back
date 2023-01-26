@@ -58,7 +58,9 @@ void main(void) {
 	//Acceuil et regles
 	//Color(FOREGROUND_INTENSITY | BACKGROUND_BLUE);
 	regles();
+
 	l_int_nbJoueurs = nombreJoueurs();
+	Zoom();
 	if (l_int_nbJoueurs == 1) {
 		PlaySoundA("Theme.wav", NULL, SND_ASYNC | SND_LOOP);
 		l_int_timeDebut = playSolo();
