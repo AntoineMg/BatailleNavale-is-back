@@ -226,6 +226,9 @@ void afficheMer(int f_int_mer) {
 
 	int iBcl1; // compteur de boucle n1
 	int iBcl2; // compteur de boucle n2
+	int l_int_testcoule = 0;
+	int l_int_testcoule2 = 1;
+	int l_int_coule = 0;
 
 	//affichage de la ligne d'en tete en couleur1
 	Color(BACKGROUND_RED | COLOR_1);
@@ -249,6 +252,7 @@ void afficheMer(int f_int_mer) {
 		for (iBcl2 = 0; iBcl2 < COLONNES; iBcl2++) {
 			if (g_enrTab_Mer[f_int_mer][iBcl1][iBcl2].m_bool_touche == 1) {
 				printf("X ");
+			
 			}
 			else {
 				printf("~ ");
@@ -486,18 +490,33 @@ TCoord demandeJoueur(void) {
 
 //Verifie si un bateau etait present dans la case selectionne
 bool checkCase(TCoord l_enr_essai, int f_int_mer) {
+	
 	if (g_enrTab_Mer[f_int_mer][l_enr_essai.m_int_ligne][l_enr_essai.m_int_colonne].m_int_bateau == 1) {
 		//printf("Touche\n");
 		g_enrTab_Mer[f_int_mer][l_enr_essai.m_int_ligne][l_enr_essai.m_int_colonne].m_bool_touche = 1;
-		g_int_points[f_int_mer] += 1;
 		g_int_tentatives += 1;
 		return(1);
 	}
+
 	else {
 		//printf("Loupe\n");
 		g_int_tentatives++;
 		return(0);
 	}
+}
+
+int points(int x_int_mer) {
+	int iBcl1, iBcl2;
+	int l_int_points = 0;
+
+	for (iBcl1 = 0; iBcl1 < 6; iBcl1++) {
+		for (iBcl2 = 0; iBcl2 < 6; iBcl2++) {
+			if (g_enrTab_Mer[x_int_mer][iBcl1][iBcl2].m_bool_touche == 1) {
+				l_int_points++;
+			}
+		}
+	}
+	return(l_int_points);
 }
 
 //Affiche les règles
@@ -542,24 +561,23 @@ int playSolo(void) {
 	//placement des bateaux
 	placeBateau(l_int_player);
 	afficheMer(l_int_player);
-	Sleep(3000);
 
 	//Debut du chrono
 	l_int_timeDebut = GetTickCount();
 
 	//Tant que le joueur n'a pas gagne le jeu continue
-	while (g_int_points[l_int_player] < N_BATEAUX * 3) {
+	do{
 		TCoord l_enr_saisie = demandeJoueur();
 		//Si le bateau est touche on affiche touche ou coule
 		if (checkCase(l_enr_saisie, l_int_player)) {
 			//si le bateau est coule on affiche coule
 			checkCoule(0);
+			int l_int_points = points(0);
 			if (g_int_coules[l_int_player] > g_int_coulesAns[l_int_player]) {
 				g_int_coulesAns[l_int_player] = g_int_coules[l_int_player];
 				system("CLS");
 				afficheMer(l_int_player);
 				printf("Coule !\n");
-				printf("%i points\n", g_int_points[l_int_player]);
 			}
 
 			//Si non on affiche seulement touche
@@ -567,29 +585,29 @@ int playSolo(void) {
 				system("CLS");
 				afficheMer(l_int_player);
 				printf("Touche !\n");
-				printf("%i points\n", g_int_points[l_int_player]);
 			}
 		}
 
 		//Si non on affiche Rate
 		else {
+			int l_int_points = points(0);
 			system("CLS");
 			afficheMer(l_int_player);
 			printf("Rate !\n");
-			printf("%i points\n", g_int_points[l_int_player]);
 		}
 
 
-	}
+	}while (points(0) < N_BATEAUX * 3);
 	return(l_int_timeDebut);
 }
 
 //Fonction qui demarre une partie en mode 2 joueurs
-void playDuo(void) {
+int playDuo(void) {
 
 	bool l_bool_win = 0; //Etat de la partie (Gagnee 1 | Pas encore gagnee 0)
 	int l_int_tour = 1; //Numero du Tour
 	int l_int_player; //Numero du joueur dont c'est le tour
+	int l_intTab_points[] = { 0,0,0 };
 
 
 	//placement des bateaux des deux joueurs
@@ -602,7 +620,7 @@ void playDuo(void) {
 	int l_int_timeDebut = GetTickCount();
 
 	//
-	while (l_bool_win == 0) {
+	while (l_intTab_points[0]<6 || l_intTab_points[1]<6) {
 		//DETERMINATION DU JOUEUR A QUI CEST LE TOUR
 		//si le tour est pair, c'est au joueur 1 de jouer 
 		if (l_int_tour % 2 == 0) {
@@ -626,7 +644,6 @@ void playDuo(void) {
 				system("CLS");
 				afficheMer(1);
 				printf("Coule !\n");
-				printf("%i points\n", g_int_points[l_int_player]);
 			}
 
 			//Si non on affiche seulement touche
@@ -634,7 +651,6 @@ void playDuo(void) {
 				system("CLS");
 				afficheMer(l_int_player);
 				printf("Touche !\n");
-				printf("%i points\n", g_int_points[l_int_player]);
 			}
 		}
 
@@ -643,12 +659,10 @@ void playDuo(void) {
 			system("CLS");
 			afficheMer(l_int_player);
 			printf("Rate !\n");
-			printf("%i points\n", g_int_points[l_int_player]);
 		}
+		l_intTab_points[l_int_player] = points(l_int_player);
 
 		l_int_tour++;
-
-
 	}
-
+	return(l_int_timeDebut);
 }

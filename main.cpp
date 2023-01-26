@@ -20,7 +20,7 @@ int l_int_player; //Numero du joueur dont c'est le tour
 int g_int_coules[] = { 0,0 }; // compteur de bateaux coul�s dans chaque mer
 int g_int_coulesAns[] = { 0,0 }; //compteur de bateaux coul�s dans chaque mer au tour pr�c�dent
 //Compteurs
-int g_int_points[] = { 0,0 }; //Compteur de points par joueur
+//int g_int_points[] = { 0,0 }; //Compteur de points par joueur
 int g_int_tentatives; //compteur de tentatives
 //Mers et Bateaux
 TCase g_enrTab_Mer[2][LIGNES][COLONNES]; //Declarations des mers (Tableau 3D, voir readme.md pour details)
@@ -67,7 +67,7 @@ void main(void) {
 	}
 	else if (l_int_nbJoueurs == 2) {
 		PlaySoundA("Theme.wav", NULL, SND_ASYNC | SND_LOOP);
-		playDuo();
+		l_int_timeDebut = playDuo();
 	}
 	else{
 		printf("Tant pis, au revoir !!!");

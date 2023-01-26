@@ -103,5 +103,7 @@ bool checkCase(TCoord l_enr_essai, int f_int_mer);
 void regles(void);
 int nombreJoueurs(void);
 int playSolo(void);
-void playDuo(void);
+int playDuo(void);
 void Zoom(void);
+int points(int x_int_mer);
+
