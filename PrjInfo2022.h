@@ -106,4 +106,6 @@ int playSolo(void);
 int playDuo(void);
 void Zoom(void);
 int points(int x_int_mer);
+void Final(int x_int_timeDebut, int x_int_tentatives);
+void Debut(void);
 

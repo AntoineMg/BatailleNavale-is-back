@@ -1,6 +1,7 @@
 ﻿#include "PrjInfo2022.h"
 #include "main.cpp"
 
+//FONCTIONS DEFAULT
 
 void Color(WORD x_word_attributes) {    // fonction d'affichage de couleurs
 	HANDLE H = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -130,9 +131,10 @@ void InitTabSport(TExtraitSonore x_enrTab_sportInit[], int x_int_taille) {
 	x_enrTab_sportInit[10].m_int_date = 1989;
 }
 
+//FONCTIONS
 
 //fonction qui initialise toutes les cases de la mer a 0
-void initCases(int f_int_mer) {
+void initCases(int x_int_mer) {
 
 	int iBcl1; // compteur de boucle n1
 	int iBcl2; // compteur de boucle n2
@@ -140,8 +142,8 @@ void initCases(int f_int_mer) {
 	//initialisation de toutes les cases a 0
 	for (iBcl1 = 0; iBcl1 < LIGNES; iBcl1++) {
 		for (iBcl2 = 0; iBcl2 < COLONNES; iBcl2++) {
-			g_enrTab_Mer[f_int_mer][iBcl1][iBcl2].m_int_bateau = 0;
-			g_enrTab_Mer[f_int_mer][iBcl1][iBcl2].m_bool_touche = 0;
+			g_enrTab_Mer[x_int_mer][iBcl1][iBcl2].m_int_bateau = 0;
+			g_enrTab_Mer[x_int_mer][iBcl1][iBcl2].m_bool_touche = 0;
 		}
 	}
 }
@@ -209,7 +211,7 @@ void Zoom(void) {
 	keybd_event(VK_LCONTROL, 0x1c, KEYEVENTF_KEYUP, 0); // Relache ENTREE
 }
 //DEBUG
-void afficheMerDebug(int f_int_player) {
+void afficheMerDebug(int x_int_player) {
 
 	int iBcl1; // compteur de boucle n1
 	int iBcl2; // compteur de boucle n2
@@ -226,7 +228,7 @@ void afficheMerDebug(int f_int_player) {
 		Color(COLOR_2);
 		//boucle for pour afficher les colonnes
 		for (iBcl2 = 0; iBcl2 < COLONNES; iBcl2++) {
-			printf("%i ", g_enrTab_Mer[f_int_player][iBcl1][iBcl2].m_int_bateau);
+			printf("%i ", g_enrTab_Mer[x_int_player][iBcl1][iBcl2].m_int_bateau);
 		}
 		//retour a la ligne pour rendre le resultat plus clean
 		printf("\n");
@@ -235,13 +237,13 @@ void afficheMerDebug(int f_int_player) {
 }
 
 //fonction pour afficher une mer
-void afficheMer(int f_int_mer) {
+void afficheMer(int x_int_mer) {
 
 	int iBcl1; // compteur de boucle n1
 	int iBcl2; // compteur de boucle n2
 	//affichage de la ligne d'en tete en couleur1
 	Color(BACKGROUND_RED | COLOR_1);
-	printf("=== JOUEUR %i ===\n", f_int_mer);
+	printf("=== JOUEUR %i ===\n", x_int_mer);
 	Color(COLOR_1);
 	printf("    1 2 3 4 5 6\n");
 	Color(COLOR_2);
@@ -250,7 +252,7 @@ void afficheMer(int f_int_mer) {
 	for (iBcl1 = 0; iBcl1 < LIGNES; iBcl1++) {
 		Color(COLOR_1);
 		printf(" %c  ", iBcl1 + 65);
-		if (f_int_mer == 1) {
+		if (x_int_mer == 1) {
 			Color(COLOR_2 | BACKGROUND_BLUE);
 		}
 		else {
@@ -259,7 +261,7 @@ void afficheMer(int f_int_mer) {
 	
 		//boucle for pour afficher les colonnes
 		for (iBcl2 = 0; iBcl2 < COLONNES; iBcl2++) {
-			if (g_enrTab_Mer[f_int_mer][iBcl1][iBcl2].m_bool_touche == 1) {
+			if (g_enrTab_Mer[x_int_mer][iBcl1][iBcl2].m_bool_touche == 1) {
 				printf("X ");
 			
 			}
@@ -274,7 +276,7 @@ void afficheMer(int f_int_mer) {
 }
 
 //fonction pour placer les bateaux automatiquement
-void placeBateau(int f_int_mer) {
+void placeBateau(int x_int_mer) {
 
 	int iBcl1; // compteur de boucle n1
 	int iBcl2; // compteur de boucle n2
@@ -306,11 +308,11 @@ void placeBateau(int f_int_mer) {
 				l_int_colonne = rand() % 6;
 
 				//Si la case choisie aleatoirement et les 2 suivantes verticales sont libres, alors on place le bateau
-				if ((g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && (g_enrTab_Mer[f_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau == 0) && (g_enrTab_Mer[f_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau == 0)) {
+				if ((g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && (g_enrTab_Mer[x_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau == 0) && (g_enrTab_Mer[x_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau == 0)) {
 					//ajout du bateau dans la mer
-					g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
-					g_enrTab_Mer[f_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau = 1;
-					g_enrTab_Mer[f_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau = 1;
+					g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
+					g_enrTab_Mer[x_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau = 1;
+					g_enrTab_Mer[x_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau = 1;
 					//stockage du bateau
 					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne = l_int_colonne;
 					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne = l_int_ligne;
@@ -334,11 +336,11 @@ void placeBateau(int f_int_mer) {
 				l_int_colonne = rand() % 4;
 
 				//Si la case choisie aleatoirement et les 2 suivantes horizontales sont libres, alors on place le bateau
-				if ((g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && (g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau == 0) && (g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau == 0)) {
+				if ((g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && (g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau == 0) && (g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau == 0)) {
 					//ajout du bateau dans la mer
-					g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
-					g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau = 1;
-					g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau = 1;
+					g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
+					g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau = 1;
+					g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau = 1;
 					//Stockage du bateau
 					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne = l_int_colonne;
 					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne = l_int_ligne;
@@ -355,7 +357,7 @@ void placeBateau(int f_int_mer) {
 }
 
 //fonction pour que les joueurs placent les bateaux
-void placeBateauJoueur(int f_int_mer) {
+void placeBateauJoueur(int x_int_mer) {
 	int iBcl1,iBcl2;
 	int l_int_direction; //direction demandee au joueur
 	bool l_bool_direction; //l_bool_direction 0 pour vertical et 1 pour horizontal
@@ -373,7 +375,7 @@ void placeBateauJoueur(int f_int_mer) {
 
 		//demande user de la direction du bateau
 		do {
-			printf("\nJoueur %i Saisir la direction (v ou h) : ", f_int_mer);
+			printf("\nJoueur %i Saisir la direction (v ou h) : ", x_int_mer);
 			l_int_direction = _getch();
 			printf("%i", l_int_direction);
 		} while ((l_int_direction != 118) && (l_int_direction != 112));
@@ -395,17 +397,17 @@ void placeBateauJoueur(int f_int_mer) {
 			//replace le bateau tant que celui-ci n'est pas dans une case libre
 			do {
 				//determination aleatoire de la premiere case du bateau
-				printf("\nJoueur %i, Saisir la ligne : ", f_int_mer);
+				printf("\nJoueur %i, Saisir la ligne : ", x_int_mer);
 				l_int_coordY = _getch();
-				printf("\nJoueur %i Saisir la colonne : ", f_int_mer);
+				printf("\nJoueur %i Saisir la colonne : ", x_int_mer);
 				scanf_s("%i", &l_int_coordX);
 
 				//Si la case choisie aleatoirement et les 2 suivantes verticales sont libres, alors on place le bateau
-				if ((g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && (g_enrTab_Mer[f_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau == 0) && (g_enrTab_Mer[f_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau == 0)) {
+				if ((g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && (g_enrTab_Mer[x_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau == 0) && (g_enrTab_Mer[x_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau == 0)) {
 					//ajout du bateau dans la mer
-					g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
-					g_enrTab_Mer[f_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau = 1;
-					g_enrTab_Mer[f_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau = 1;
+					g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
+					g_enrTab_Mer[x_int_mer][l_int_ligne + 1][l_int_colonne].m_int_bateau = 1;
+					g_enrTab_Mer[x_int_mer][l_int_ligne + 2][l_int_colonne].m_int_bateau = 1;
 					//stockage du bateau
 					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne = l_int_colonne;
 					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne = l_int_ligne;
@@ -429,11 +431,11 @@ void placeBateauJoueur(int f_int_mer) {
 				l_int_colonne = rand() % 4;
 
 				//Si la case choisie aleatoirement et les 2 suivantes horizontales sont libres, alors on place le bateau
-				if ((g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && (g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau == 0) && (g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau == 0)) {
+				if ((g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne].m_int_bateau == 0) && (g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau == 0) && (g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau == 0)) {
 					//ajout du bateau dans la mer
-					g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
-					g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau = 1;
-					g_enrTab_Mer[f_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau = 1;
+					g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne].m_int_bateau = 1;
+					g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne + 1].m_int_bateau = 1;
+					g_enrTab_Mer[x_int_mer][l_int_ligne][l_int_colonne + 2].m_int_bateau = 1;
 					//Stockage du bateau
 					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne = l_int_colonne;
 					g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne = l_int_ligne;
@@ -450,20 +452,19 @@ void placeBateauJoueur(int f_int_mer) {
 }
 
 //fonction pour verifier si il y a un bateau coule dans une mer
-//fonctionne parfsois ex pour E456 et pour CDE4 et pour A234
-void checkCoule(int f_int_mer) {
+void checkCoule(int x_int_mer) {
 	int iBcl1, iBcl2;
 	bool l_boolTab_Coules[2][N_BATEAUX] = { 0,0 }; //Tableau 2D qui stocke l'etat (coule ou non) de 1 bateau de 1 joueur par case
 
-	g_int_coules[f_int_mer] = 0;
+	g_int_coules[x_int_mer] = 0;
 	for (iBcl1 = 0; iBcl1 < N_BATEAUX; iBcl1++) {
-		if ((g_enrTab_Mer[f_int_mer][g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne][g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne].m_bool_touche == 1) && (g_enrTab_Mer[f_int_mer][g_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_ligne][g_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_colonne].m_bool_touche == 1) && (g_enrTab_Mer[f_int_mer][g_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_ligne][g_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_colonne].m_bool_touche == 1)) {
-			l_boolTab_Coules[f_int_mer][iBcl1] = 1;
+		if ((g_enrTab_Mer[x_int_mer][g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_ligne][g_enr_Bateaux[iBcl1].m_TCoord_Case1.m_int_colonne].m_bool_touche == 1) && (g_enrTab_Mer[x_int_mer][g_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_ligne][g_enr_Bateaux[iBcl1].m_TCoord_Case2.m_int_colonne].m_bool_touche == 1) && (g_enrTab_Mer[x_int_mer][g_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_ligne][g_enr_Bateaux[iBcl1].m_TCoord_Case3.m_int_colonne].m_bool_touche == 1)) {
+			l_boolTab_Coules[x_int_mer][iBcl1] = 1;
 		}
 	}
 	for (iBcl2 = 0; iBcl2 < N_BATEAUX; iBcl2++) {
-		if (l_boolTab_Coules[f_int_mer][iBcl2] == 1) {
-			g_int_coules[f_int_mer]++;
+		if (l_boolTab_Coules[x_int_mer][iBcl2] == 1) {
+			g_int_coules[x_int_mer]++;
 		}
 	}
 
@@ -498,11 +499,11 @@ TCoord demandeJoueur(void) {
 }
 
 //Verifie si un bateau etait present dans la case selectionne
-bool checkCase(TCoord l_enr_essai, int f_int_mer) {
+bool checkCase(TCoord x_enr_essai, int x_int_mer) {
 	
-	if (g_enrTab_Mer[f_int_mer][l_enr_essai.m_int_ligne][l_enr_essai.m_int_colonne].m_int_bateau == 1) {
+	if (g_enrTab_Mer[x_int_mer][x_enr_essai.m_int_ligne][x_enr_essai.m_int_colonne].m_int_bateau == 1) {
 		//printf("Touche\n");
-		g_enrTab_Mer[f_int_mer][l_enr_essai.m_int_ligne][l_enr_essai.m_int_colonne].m_bool_touche = 1;
+		g_enrTab_Mer[x_int_mer][x_enr_essai.m_int_ligne][x_enr_essai.m_int_colonne].m_bool_touche = 1;
 		g_int_tentatives += 1;
 		return(1);
 	}
@@ -562,6 +563,9 @@ int nombreJoueurs(void) {
 
 //Fonction qui demarre une partie en mode solo
 int playSolo(void) {
+
+	PlaySoundA("Theme.wav", NULL, SND_ASYNC | SND_LOOP);
+
 	system("CLS");
 
 	int l_int_timeDebut;//timecode du debut de la partie
@@ -612,6 +616,8 @@ int playSolo(void) {
 
 //Fonction qui demarre une partie en mode 2 joueurs
 int playDuo(void) {
+
+	PlaySoundA("Theme.wav", NULL, SND_ASYNC | SND_LOOP);
 
 	bool l_bool_win = 0; //Etat de la partie (Gagnee 1 | Pas encore gagnee 0)
 	int l_int_tour = 1; //Numero du Tour
@@ -674,4 +680,49 @@ int playDuo(void) {
 		l_int_tour++;
 	} while (l_intTab_points[0] < 6 || l_intTab_points[1] < 6);
 	return(l_int_timeDebut);
+}
+
+//Fonction qui affiche le debut
+void Debut(void) {
+
+	int l_char_lancement;
+
+	//Mets la fenetre en fullscreen
+	Fscreen();
+
+	//Lance la musique d'intro
+	PlaySoundA("Intro2.wav", NULL, SND_ASYNC);
+	Sleep(2000);
+
+	//Affiche le logo et l'ecran de chargement
+	logo();
+	load();
+
+	//Lance l'audio du menu (explications en anglais)
+	PlaySoundA("Menu.wav", NULL, SND_ASYNC);
+	printf("Recommencer le message (Y ou y) ou lancer le programme (autre touche)\n");
+	l_char_lancement = _getch();
+	if ((l_char_lancement == 'Y') || (l_char_lancement == 'y')) {
+		PlaySoundA("Menu.wav", NULL, SND_ASYNC);
+	}
+
+	//Acceuil et regles
+	//Color(FOREGROUND_INTENSITY | BACKGROUND_BLUE);
+	regles();
+}
+
+//Fonction qui affiche lecran final
+void Final(int x_int_timeDebut,int x_int_tentatives) {
+	int l_int_timeFin;//timecode de la fin de la partie
+	int l_int_time;//duree de la partie
+	int l_int_minutes;//nombre des minutes du temps
+	int l_int_secondes;//nombre des secondes du temps
+
+	l_int_timeFin = GetTickCount();
+	l_int_time = l_int_timeFin - x_int_timeDebut;
+	l_int_minutes = l_int_time / 60000; //60*1000
+	l_int_secondes = (l_int_time - (60000 * l_int_minutes)) / 1000;
+	//affichage ecran victoire
+	printf("Gagne\n");
+	printf("Vous avez effectue %i tentatives en une duree de %i minutes et %i secondes", g_int_tentatives, l_int_minutes, l_int_secondes);
 }
