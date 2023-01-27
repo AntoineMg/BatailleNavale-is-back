@@ -1,4 +1,7 @@
 # projetBatailleNavale
+!!! ATTENTION IMPORTANT !!!
+Afin de lancer le programme correctement, déplacez le contenu du dossier assets, dans le dossier parent.
+
 ==========FONCTIONS DOC==================
 
 	void initCases(void)
