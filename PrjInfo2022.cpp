@@ -150,18 +150,31 @@ void initCases(int f_int_mer) {
 void logo(void) {
 	Sleep(250);
 	Color(3);
+
 	printf("\t\t\t\t\toooooooooo.                .               o8o  oooo  oooo                 ooooo      ooo                                 oooo            \n");
+	Sleep(250);
 	printf("\t\t\t\t\t`888'   `Y8b             .o8                    `888  `888                 `888b.     `8'                                 `888            \n");
+	Sleep(250);
 	printf("\t\t\t\t\t 888     888  .oooo.   .o888oo  .oooo.    oooo   888   888   .ooooo.        8 `88b.    8   .oooo.   oooo   oooo  .oooo.    888   .ooooo.  \n");
+	Sleep(250);
 	printf("\t\t\t\t\t 888oooo888' `P  )88b    888   `P  )88b    888   888   888  d88' `88b       8   `88b.  8  `P  )88b   `88.  .8'  `P  )88b   888  d88' `88b \n");
+	Sleep(250);
 	printf("\t\t\t\t\t 888    `88b  .oP8888    888    .oP8888    888   888   888  8888888888      8     P888 8   .oP8888    `888        oP8888   888  888ooo888 \n");
+	Sleep(250);
 	printf("\t\t\t\t\t 888    .88P d8(  888    888 . d8(  888    888   888   888  888    __       8       `888  d8(  888     `888'    d8(  888   888  888    .o \n");
+	Sleep(250);
 	printf("\t\t\t\t\t o888bood8P'  `Y888888o   888    Y8888o   o888o o888o o888o `Y8bod8P'      o8o        `8  `Y8888888     `8'     `Y888888o o888o `Y8bod8P' \n");
+	Sleep(250);
 	printf("\t\t\t\t\t\t                  __/___                                               __\___                                      \n");
+	Sleep(250);
 	printf("\t\t\t\t\t\t           _____ /______|                                             |______\______                               \n");
+	Sleep(250);
 	printf("\t\t\t\t\t\t  _______ / _____\_______\_____                                 _____/_______/_____ \ _______                      \n");
+	Sleep(250);
 	printf("\t\t\t\t\t\t  \              < < <       |                                   |    > > >                 /                      \n");
+	Sleep(250);
 	printf("\t\t\t\t\t\t  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                    \n\n\n");
+	Sleep(250);
 	printf("\t\t\t\t\t\t		Created by :    Antoine Morier-Genoud      and       Thomas Guillerme\n\n\n\n");
 
 	Sleep(1500);
@@ -226,10 +239,6 @@ void afficheMer(int f_int_mer) {
 
 	int iBcl1; // compteur de boucle n1
 	int iBcl2; // compteur de boucle n2
-	int l_int_testcoule = 0;
-	int l_int_testcoule2 = 1;
-	int l_int_coule = 0;
-
 	//affichage de la ligne d'en tete en couleur1
 	Color(BACKGROUND_RED | COLOR_1);
 	printf("=== JOUEUR %i ===\n", f_int_mer);
@@ -619,8 +628,7 @@ int playDuo(void) {
 	//Debut du chrono
 	int l_int_timeDebut = GetTickCount();
 
-	//
-	while (l_intTab_points[0]<6 || l_intTab_points[1]<6) {
+	do{
 		//DETERMINATION DU JOUEUR A QUI CEST LE TOUR
 		//si le tour est pair, c'est au joueur 1 de jouer 
 		if (l_int_tour % 2 == 0) {
@@ -638,11 +646,12 @@ int playDuo(void) {
 
 		if (checkCase(l_enr_saisie, l_int_player)) {
 			//si le bateau est coule on affiche coule
+			int l_int_points = points(0);
 			checkCoule(l_int_player);
 			if (g_int_coules > g_int_coulesAns) {
 				g_int_coulesAns[l_int_player] = g_int_coules[l_int_player];
 				system("CLS");
-				afficheMer(1);
+				afficheMer(l_int_player);
 				printf("Coule !\n");
 			}
 
@@ -663,6 +672,6 @@ int playDuo(void) {
 		l_intTab_points[l_int_player] = points(l_int_player);
 
 		l_int_tour++;
-	}
+	} while (l_intTab_points[0] < 6 || l_intTab_points[1] < 6);
 	return(l_int_timeDebut);
 }
